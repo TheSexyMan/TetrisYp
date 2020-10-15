@@ -92,7 +92,7 @@ else{
 }
     
 if (!instance_exists(obj_Shape))
-    instance_create(x,y,obj_Shape);
+    scr_SpawnShape();
 </string>
           </argument>
         </arguments>

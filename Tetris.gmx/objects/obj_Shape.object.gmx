@@ -30,6 +30,9 @@
 tar_X = 0;
 tar_Y = 0;
 move_H = 0;
+
+shadow_sprite = sprite_index;
+index = 0;
 </string>
           </argument>
         </arguments>
@@ -65,13 +68,19 @@ move_H = 0;
 
 scr_Player_Input();
 move_H = (Key_R-Key_L)*CELL_SIZE;
+if(place_meeting(x+move_H, y, obj_Border))
+    move_H = 0;
 x += move_H;
+
+if (Key_U){
+    image_index++;
+}
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="0">
+    <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -88,7 +97,13 @@ x += move_H;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_destroy();
+            <string>draw_self();
+
+var _yshift = 0;
+while(!place_meeting(x, y+_yshift*CELL_SIZE,obj_Border))
+    _yshift++;
+
+draw_sprite_ext(shadow_sprite, image_index, x, y + (_yshift-1)*CELL_SIZE,1,1,0,c_white,.5)
 </string>
           </argument>
         </arguments>
